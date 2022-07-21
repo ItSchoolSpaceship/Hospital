@@ -52,7 +52,7 @@ public class QnaServiceImpl{
 
 	
 	public void qna_reply_insert(QnaVO vo) {
-		mapper.reply_insert(vo);
+		mapper.replyInsert(vo);
 	}
 
 	

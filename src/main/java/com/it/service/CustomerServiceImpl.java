@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
-@Service("customerServiceImpl")
+@Service
 @Log4j
 public class CustomerServiceImpl {
 	
@@ -24,39 +24,27 @@ public class CustomerServiceImpl {
 		this.mapper = mapper;
 	}
 
-	
 	public void customerInsert(CustomerVO vo) {
 		log.info("insert....."+vo);
 		mapper.insert(vo);
-		
-		
 	}
-
 
 	public List<CustomerVO> customerList() {
 		// TODO Auto-generated method stub
 		return mapper.list();
 	}
 
-
 	public CustomerVO customerDetail(int id) {
 		// TODO Auto-generated method stub
 		return mapper.detail(id);
 	}
 
-
 	public void customerUpdate(CustomerVO vo) {
 		mapper.update(vo);
-		
 	}
-
 
 	public void customerDelete(int id) {
 		mapper.delete(id);
-		
 	}
-
 	
-
 }
-//완료

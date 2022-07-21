@@ -14,8 +14,11 @@ import com.it.domain.MemberVO;
 import com.it.service.CommonService;
 import com.it.service.MemberServiceImpl;
 
+import lombok.AllArgsConstructor;
+
 
 @Controller
+@AllArgsConstructor
 public class MemberController {
 	 private MemberServiceImpl service;
 	 private CommonService common;

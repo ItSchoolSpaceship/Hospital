@@ -21,15 +21,12 @@ public interface BoardMapper {
 	
 	public int total(BoardPage boardPage);
 	
-	public int comment_insert(BoardCommentVO vo);
+	public int commentInsert(BoardCommentVO vo);
 	
-	public List<BoardCommentVO> comment_list (int pid);
+	public List<BoardCommentVO> commentList (int pid);
 	
-	public int comment_update(BoardCommentVO vo);
+	public int commentUpdate(BoardCommentVO vo);
 	
-	public int comment_delete(int id);
-	
-	
-	
+	public int commentDelete(int id);
 	
 }

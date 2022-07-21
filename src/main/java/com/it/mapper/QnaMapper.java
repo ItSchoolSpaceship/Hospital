@@ -6,23 +6,23 @@ import com.it.domain.QnaVO;
 
 public interface QnaMapper {
 	
-	void insert(QnaVO vo);
+	public void insert(QnaVO vo);
 	
-	QnaVO detail(int id);
+	public QnaVO detail(int id);
 	
-	void read(int id);
+	public void read(int id);
 	
-	void delete(int id);
+	public void delete(int id);
 	
-	void update(QnaVO vo);
+	public void update(QnaVO vo);
 	
-	List<QnaVO> list();
+	public List<QnaVO> list();
 	
-	List<QnaVO> list(QnaPage page);
+	public List<QnaVO> list(QnaPage page);
 	
-	int totalList(QnaPage page);
+	public int totalList(QnaPage page);
 	
-	void reply_insert(QnaVO vo);
+	public void replyInsert(QnaVO vo);
 
 }
 

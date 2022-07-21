@@ -4,8 +4,17 @@ import lombok.Data;
 
 @Data
 public class BoardCommentVO {
-	private int id, pid;
-	private String writer, name, content;
+	
+	private int id;
+	
+	private int pid;
+	
+	private String writer;
+	
+	private String name;
+	
+	private String content;
+	
 	private String writedate;
 	
 }

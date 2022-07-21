@@ -61,4 +61,5 @@ public class NoticeServiceImpl{
 	public void notice_reply_insert(NoticeVO vo) {
 		mapper.replyInsert(vo);		
 	}
+	
 }

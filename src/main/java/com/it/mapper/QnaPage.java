@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 import com.it.domain.PageVO;
 import com.it.domain.QnaVO;
 
-
 public class QnaPage extends com.it.domain.PageVO {
+	
 	private List<QnaVO> list;
 
 	public List<QnaVO> getList() {
@@ -18,4 +18,5 @@ public class QnaPage extends com.it.domain.PageVO {
 	public void setList(List<QnaVO> list) {
 		this.list = list;
 	}
+
 }

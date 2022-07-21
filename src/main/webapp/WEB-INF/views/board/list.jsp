@@ -63,6 +63,7 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 </form>
 
 <div id="data-list">
+	<core:if test="${page.viewType eq 'list' }">
 		<table>
 			<tr>
 				<th class="w-px60">번호</th>
@@ -85,6 +86,22 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 				</tr>
 			</core:forEach>
 		</table>
+	</core:if>
+	
+	<core:if test="${page.viewType eq 'grid' }">
+		<ul class="grid">
+			<core:forEach items="${page.list }" var="vo">
+				<li>
+					<div><a onclick="go_detail(${vo.id})">${vo.title }</a></div>
+					<div>${vo.name }</div>
+					<div>
+						${vo.writedate }
+						<span>${empty vo.filename ? '' : '<img src="img/attach.png" class="file-img" />' }</span>
+					</div>
+				</li>
+			</core:forEach>
+		</ul>
+	</core:if>
 </div>
 
 <div class="btnSet">

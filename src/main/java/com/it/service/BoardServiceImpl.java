@@ -13,7 +13,6 @@ import com.it.mapper.BoardPage;
 
 @Service
 public class BoardServiceImpl {
-
 	
 	private BoardMapper mapper;
 
@@ -22,58 +21,51 @@ public class BoardServiceImpl {
 		this.mapper = mapper;
 	}
 	
-	public int board_insert(BoardVO vo) {
+	public int boardInsert(BoardVO vo) {
 		return mapper.insert(vo);
 	}
 	
-
-	  public BoardPage board_list(BoardPage page) {
-	 
-		int totalPage = mapper.total(page);
-		List<BoardVO> list = mapper.list(page);
-		
-		page.setTotalPage(totalPage);
-		page.setList(list);
-		
-		return page;
+ public BoardPage boardList(BoardPage page) {
+  
+	int totalPage = mapper.total(page); 
+	List<BoardVO> list = mapper.list(page);
+  
+  page.setTotalPage(totalPage); 
+  page.setList(list);
+  
+  return page; 
 	}
-
 	
-	/*
-	public List<BoardVO> board_list(PageVO page){
-		return mapper.list(page);
-	}
-	*/
-	
-	public BoardVO board_detail(int id) {
+	public BoardVO boardDetail(int id) {
 		return mapper.detail(id);
 	}
 	
-	public void board_read(int id) {
+	public void boardRead(int id) {
 		mapper.read(id);
 	}
 	
-	public int board_update(BoardVO vo) {
+	public int boardUpdate(BoardVO vo) {
 		return mapper.update(vo);
 	}
 	
-	public int board_delete(int id) {
+	public int boardDelete(int id) {
 		return mapper.delete(id);
 	}
 	
-	public int board_comment_insert(BoardCommentVO vo) {
-		return mapper.comment_insert(vo);
+	public int boardCommentInsert(BoardCommentVO vo) {
+		return mapper.commentInsert(vo);
 	}
 	
-	public List<BoardCommentVO> board_comment_list(int pid){
-		return mapper.comment_list(pid);
+	public List<BoardCommentVO> boardCommentList(int pid){
+		return mapper.commentList(pid);
 	}
 	
 	public int board_comment_update(BoardCommentVO vo) {
-		return mapper.comment_update(vo);
+		return mapper.commentUpdate(vo);
 	}
 	
 	public int board_comment_delete(int id) {
-		return mapper.comment_delete(id);
+		return mapper.commentDelete(id);
 }
+	
 }

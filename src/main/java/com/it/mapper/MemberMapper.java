@@ -12,5 +12,4 @@ public interface MemberMapper {
 	
 	boolean join(MemberVO vo);
 	
-
 }

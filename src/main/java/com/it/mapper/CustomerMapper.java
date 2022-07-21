@@ -6,16 +6,14 @@ import com.it.domain.CustomerVO;
 
 public interface CustomerMapper {
 	
-	CustomerVO detail(int id);
+	public CustomerVO detail(int id);
 	
-	List<CustomerVO> list();
+	public List<CustomerVO> list();
 	
-	void insert(CustomerVO vo);
+	public void insert(CustomerVO vo);
 	
-	void update(CustomerVO vo);
+	public void update(CustomerVO vo);
 	
-	void delete(int id);
-
-	
+	public void delete(int id);
 
 }

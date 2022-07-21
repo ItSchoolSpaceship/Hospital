@@ -84,7 +84,7 @@ public class CustomerController {
 	}
 	
 	//고객 정보 삭제 처리 요청
-	@PostMapping("/delete.cu")
+	@GetMapping("/delete.cu")
 	public String delete(int id) {
 		//선택한 고객 정보를 DB에서 삭제한 후
 		customerServiceImpl.customerDelete(id);

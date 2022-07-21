@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 import com.it.domain.NoticeVO;
 import com.it.domain.PageVO;
 
-
 public class NoticePage extends PageVO {
+	
 	private List<NoticeVO> list;
 
 	public List<NoticeVO> getList() {
@@ -18,6 +18,5 @@ public class NoticePage extends PageVO {
 	public void setList(List<NoticeVO> list) {
 		this.list = list;
 	}
-	
 	
 }

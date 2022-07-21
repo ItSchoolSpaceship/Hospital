@@ -79,4 +79,5 @@
 	<delete id="comment_delete">
 		DELETE FROM board_comment WHERE id=#{id}
 	</delete>
+	
 </mapper>

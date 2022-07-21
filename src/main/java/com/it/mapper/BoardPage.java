@@ -5,6 +5,7 @@ import java.util.List;
 import com.it.domain.BoardVO;
 
 public class BoardPage extends com.it.domain.PageVO {
+	
 	private List<BoardVO> list;
 	
 	public List<BoardVO> getList() {
@@ -14,4 +15,5 @@ public class BoardPage extends com.it.domain.PageVO {
 	public void setList(List<BoardVO> list) {
 		this.list = list;
 	}
+	
 }

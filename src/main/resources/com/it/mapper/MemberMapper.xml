@@ -14,4 +14,5 @@
 		INSERT INTO member(name, id, pw, gender, email, birth, post, addr, tel)
 		VALUES (#{name }, #{id }, #{pw }, #{gender }, #{email }, #{birth }, #{post }, #{addr }, #{tel })
 	</insert>
+	
 </mapper>
