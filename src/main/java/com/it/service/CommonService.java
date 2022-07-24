@@ -25,6 +25,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.AllArgsConstructor;
+
 @Service
 public class CommonService {
 	public void sendEmail(String email, String name, HttpSession session) {

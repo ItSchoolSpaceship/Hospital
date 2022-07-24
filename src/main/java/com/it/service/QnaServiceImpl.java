@@ -21,47 +21,47 @@ public class QnaServiceImpl{
 		this.mapper=mapper;
 	}
 	
-	public void qna_insert(QnaVO vo) {
+	public void qnaInsert(QnaVO vo) {
 		mapper.insert(vo);
 	}
 
 	
-	public List<QnaVO> qna_list() {
+	public List<QnaVO> qnaList() {
 		return mapper.list();
 	}
 
 	
-	public QnaVO qna_detail(int id) {
+	public QnaVO qnaDetail(int id) {
 		return mapper.detail(id);
 	}
 
 	
-	public void qna_update(QnaVO vo) {
+	public void qnaUpdate(QnaVO vo) {
 		mapper.update(vo);
 	}
 
 	
-	public void qna_delete(int id) {
+	public void qnaDelete(int id) {
 		mapper.delete(id);
 	}
 
 	
-	public void qna_read(int id) {
+	public void qnaRead(int id) {
 		mapper.read(id);
 	}
 
 	
-	public void qna_reply_insert(QnaVO vo) {
+	public void qnaReplyInsert(QnaVO vo) {
 		mapper.replyInsert(vo);
 	}
 
 	
-	public QnaPage qna_list(QnaPage page) {
-		int totalPage = mapper.totalList(page);
-		List<QnaVO> list = mapper.list(page);
+	public QnaPage qnaList(QnaPage page) {
+		//int totalPage = mapper.totalList(page);
+		//List<QnaVO> list = mapper.list(page);
 		
-		page.setTotalList(totalPage);
-		page.setList(list);
+		page.setTotalList(mapper.totalList(page));
+		page.setList(mapper.list(page));
 		
 		return page;
 	}

@@ -31,7 +31,7 @@ public class MemberController {
 		
 		map.put("id", id);
 		map.put("pw", pw);
-		MemberVO vo = service.member_login(map);
+		MemberVO vo = service.memberLogin(map);
 
 		//일치하는 회원 정보가 있다면 회원 정보를 세션에 담는다
 		session.setAttribute("login_info", vo);
@@ -57,7 +57,7 @@ public class MemberController {
 	//아이디 중복확인 요청
 	@ResponseBody @RequestMapping("/id_check")
 	public boolean id_check(String id) {
-		return service.member_id_check(id);
+		return service.memberIdCheck(id);
 	}
 	
 	//회원가입 처리 요청
@@ -66,7 +66,7 @@ public class MemberController {
 	public String join(MemberVO vo, HttpServletRequest request, HttpSession session) {
 		String msg = "<script type='text/javascript'>";
 		//화면에서 입력한 정보를 DB에 저장한 후 홈 화면으로 연결
-		if(service.member_insert(vo)) {
+		if(service.memberInsert(vo)) {
 			//메일 전송
 			common.sendEmail(vo.getEmail(), vo.getName(), session);
 			msg += "alert('회원가입을 축하드립니다!'); location='" + request.getContextPath() + "'";

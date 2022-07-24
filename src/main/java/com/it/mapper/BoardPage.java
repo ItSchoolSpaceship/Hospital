@@ -2,6 +2,8 @@ package com.it.mapper;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.it.domain.BoardVO;
 
 public class BoardPage extends com.it.domain.PageVO {

@@ -42,7 +42,7 @@ public class QnaController {
 		page.setCurPage(curPage);
 		page.setSearch(search);
 		page.setKeyword(keyword);
-		model.addAttribute("page", service.qna_list(page));
+		model.addAttribute("page", service.qnaList(page));
 		
 		return "qna/list";
 	}
@@ -64,7 +64,7 @@ public class QnaController {
 		
 		vo.setWriter( ((MemberVO) session.getAttribute("login_info")).getId() );
 		//화면에서 입력한 정보를 DB에 저장한 후
-		service.qna_insert(vo);
+		service.qnaInsert(vo);
 		//목록 화면으로 연결
 		return "redirect:list.qna";
 	}
@@ -73,10 +73,10 @@ public class QnaController {
 	@GetMapping("/detail.qna")
 	public String detail(int id, Model model) {
 		//선택한 QNA 글에 대한 조회수 증가 처리
-		service.qna_read(id);
+		service.qnaRead(id);
 		QnaPage page = new QnaPage();
 		//선택한 QNA 글 정보를 DB에 조회해와 상세 화면에 출력
-		model.addAttribute("vo", service.qna_detail(id));
+		model.addAttribute("vo", service.qnaDetail(id));
 		model.addAttribute("crlf", "\r\n");
 		model.addAttribute("page", page);
 		
@@ -86,7 +86,7 @@ public class QnaController {
 	//첨부 파일 다운로드 요청
 	@ResponseBody @RequestMapping("/download.qna")
 	public void download(int id, HttpSession session, HttpServletResponse response) {
-		QnaVO vo = service.qna_detail(id);
+		QnaVO vo = service.qnaDetail(id);
 		common.download(vo.getFilename(), vo.getFilepath(), session, response);
 	} // download()
 	
@@ -94,14 +94,14 @@ public class QnaController {
 	@RequestMapping("/delete.qna")
 	public String delete(int id, HttpSession session) {
 		//선택한 QNA 글에 첨부한 파일이 있다면 서버의 물리적 영역에서 해당 파일도 삭제한다
-		QnaVO vo = service.qna_detail(id);
+		QnaVO vo = service.qnaDetail(id);
 		if(vo.getFilepath() != null) {
 			File file = new File(session.getServletContext().getRealPath("resources") + vo.getFilepath());
 			if(file.exists()) file.delete();
 		}
 		
 		//선택한 QNA 글을 DB에서 삭제한 후 목록 화면으로 연결
-		service.qna_delete(id);
+		service.qnaDelete(id);
 		
 		return "redirect:list.qna";
 	} //delete()
@@ -110,7 +110,7 @@ public class QnaController {
 	@RequestMapping("/modify.qna")
 	public String modify(int id, Model model) {
 		//선택한 QNA 글 정보를 DB에서 조회해와 수정 화면에 출력
-		model.addAttribute("vo", service.qna_detail(id));
+		model.addAttribute("vo", service.qnaDetail(id));
 		return "qna/modify";
 	} //modify()
 	
@@ -118,7 +118,7 @@ public class QnaController {
 	@RequestMapping("/update.qna")
 	public String update(QnaVO vo, MultipartFile file, HttpSession session, String attach) {
 		//원래 글의 첨부 파일 관련 정보를 조회
-		QnaVO qna = service.qna_detail(vo.getId());
+		QnaVO qna = service.qnaDetail(vo.getId());
 		String uuid = session.getServletContext().getRealPath("resources") + qna.getFilepath();
 		
 		//파일을 첨부한 경우 - 없었는데 첨부 / 있던 파일을 바꿔서 첨부
@@ -148,7 +148,7 @@ public class QnaController {
 		}
 		
 		//화면에서 변경한 정보를 DB에 저장한 후 상세 화면으로 연결
-		service.qna_update(vo);
+		service.qnaUpdate(vo);
 		
 		return "redirect:detail.qna?id=" + vo.getId();
 	} //update()
@@ -157,7 +157,7 @@ public class QnaController {
 	@RequestMapping("/reply.qna")
 	public String reply(Model model, int id) {
 		//원글의 정보를 답글 쓰기 화면에서 알 수 있도록 한다.
-		model.addAttribute("vo", service.qna_detail(id));
+		model.addAttribute("vo", service.qnaDetail(id));
 		
 		return "qna/reply";
 	} //reply()
@@ -172,7 +172,7 @@ public class QnaController {
 		vo.setWriter(((MemberVO) session.getAttribute("login_info")).getId());
 		
 		//화면에서 입력한 정보를 DB에 저장한 후 목록 화면으로 연결
-		service.qna_reply_insert(vo);
+		service.qnaReplyInsert(vo);
 		return "redirect:list.qna";
 	} //reply_insert()
 }

@@ -8,8 +8,8 @@ public interface MemberMapper {
 	
 	public MemberVO login(HashMap<String, String> map);
 	
-	boolean id_check(String id);
+	int id_check(String id);
 	
-	boolean join(MemberVO vo);
+	int join(MemberVO vo);
 	
 }

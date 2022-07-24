@@ -32,28 +32,26 @@ public class BoardController {
 	private CommonService common;
 
 	// 방명록 목록 화면 요청================================================================
-	@GetMapping("/list.bo")
+	@RequestMapping("/list.bo")
 	public String list(HttpSession session, Model model, @RequestParam(defaultValue = "1") int curPage, String search,
-			String keyword, @RequestParam(defaultValue = "10") int pageList,
-			@RequestParam(defaultValue = "list") String viewType) {
+			String keyword, @RequestParam(defaultValue = "10") int pageList) {
 		// DB에서 방명록 정보를 조회해와 목록 화면에 출력
 		session.setAttribute("category", "bo");
-
+		
 		BoardPage page = new BoardPage();
 		
 		page.setCurPage(curPage);
 		page.setSearch(search);
 		page.setKeyword(keyword);
 		page.setPageList(pageList);
-		page.setViewType(viewType);
-
+		
 		model.addAttribute("page", service.boardList(page));
 
 		return "board/list";
 	} // list()
 
 	// 방명록 신규 화면 요청================================================================
-	@PostMapping("/new.bo")
+	@RequestMapping("/new.bo")
 	public String board() {
 		// 방명록 글쓰기 화면으로 연결
 		return "board/new";
@@ -61,7 +59,7 @@ public class BoardController {
 
 	// 신규 방명록 저장 처리
 	// 요청================================================================
-	@PostMapping("/insert.bo")
+	@RequestMapping("/insert.bo")
 	public String insert(BoardVO vo, MultipartFile file, HttpSession session) {
 		// 화면에서 입력한 정보를 DB에 저장한 후 목록 화면으로 연결
 		if (!file.isEmpty()) {
@@ -75,7 +73,7 @@ public class BoardController {
 
 	// 방명록 상세 화면
 	// 요청====================================================================
-	@PostMapping("/detail.bo")
+	@RequestMapping("/detail.bo")
 	public String detail(int id, Model model) {
 		// 선택한 방명록 글을 DB에서 조회해와 상세 화면에 출력
 		BoardPage page = new BoardPage();
@@ -100,7 +98,7 @@ public class BoardController {
 
 	// 방명록 수정 화면
 	// 요청====================================================================
-	@RequestMapping("/modify.bo")
+	@GetMapping("/modify.bo")
 	public String modify(int id, Model model) {
 		// 선택한 방명록 글의 정보를 DB에서 조회해와 수정 화면에 출력
 		model.addAttribute("vo", service.boardDetail(id));
@@ -151,7 +149,7 @@ public class BoardController {
 
 	// 방명록 수정 화면
 	// 요청====================================================================
-	@PostMapping("/delete.bo")
+	@RequestMapping("/delete.bo")
 	public String delete(int id, Model model) {
 		// 선택한 글을 DB에서 삭제한 후 목록 화면으로 연결
 		BoardPage page = new BoardPage();
@@ -166,7 +164,7 @@ public class BoardController {
 	// 댓글 저장 처리
 	// 요청====================================================================
 	@ResponseBody
-	@PostMapping("/board/comment/insert")
+	@RequestMapping("/board/comment/insert")
 	public boolean comment_insert(BoardCommentVO vo, HttpSession session) {
 		// 화면에서 입력한 정보를 DB에 저장한다.
 		vo.setWriter(((MemberVO) session.getAttribute("login_info")).getId());
@@ -187,16 +185,16 @@ public class BoardController {
 
 	// 댓글 변경 저장 처리 요청
 	@ResponseBody
-	@PostMapping(value = "/board/comment/update", produces = "application/text; charset=utf-8")
+	@RequestMapping(value = "/board/comment/update", produces = "application/text; charset=utf-8")
 	public String comment_update(@RequestBody BoardCommentVO vo) {
-		return service.board_comment_update(vo) > 0 ? "성공" : "실패";
+		return service.boardCommentUpdate(vo) > 0 ? "성공" : "실패";
 	} // comment_update()
 
 	// 댓글 삭제 처리 요청
 	// ResponseBody : 화면(jsp)으로 연결이 아니라 호출한쪽으로 돌아갈때 사용하는 어노테이션
 	@ResponseBody
-	@PostMapping("/board/comment/delete/{id}")
+	@RequestMapping("/board/comment/delete/{id}")
 	public void comment_delete(@PathVariable int id) {
-		service.board_comment_delete(id);
+		service.boardCommentDelete(id);
 	} // comment_delete()
 } // class

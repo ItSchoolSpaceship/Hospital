@@ -24,41 +24,41 @@ public class NoticeServiceImpl{
 		this.mapper = mapper;
 	}
 	
-	public void notice_insert(NoticeVO vo) {
+	public void noticeInsert(NoticeVO vo) {
 		mapper.insert(vo);
 	}
 
-	public List<NoticeVO> notice_list() {
+	public List<NoticeVO> noticeList() {
 		return mapper.list();
 	}
 
 	public NoticePage notice_list(NoticePage page) {
-		int totalPage = mapper.totalList(page);
-		List<NoticeVO> list = mapper.list(page);
+		//int totalPage = mapper.totalList(page);
+		//List<NoticeVO> list = mapper.list(page);
 		
-		page.setTotalPage(totalPage);
-		page.setList(list);
+		page.setTotalList(mapper.totalList(page));
+		page.setList(mapper.list(page));
 		
 		return page;
 	}
 
-	public NoticeVO notice_detail(int id) {
+	public NoticeVO noticeDetail(int id) {
 		return mapper.detail(id);
 	}
 
-	public void notice_update(NoticeVO vo) {
+	public void noticeUpdate(NoticeVO vo) {
 		mapper.update(vo);
 	}
 
-	public void notice_delete(int id) {
+	public void noticeDelete(int id) {
 		mapper.delete(id);
 	}
 
-	public void notice_read(int id) {
+	public void noticeRead(int id) {
 		mapper.read(id);
 	}
 
-	public void notice_reply_insert(NoticeVO vo) {
+	public void noticeReplyInsert(NoticeVO vo) {
 		mapper.replyInsert(vo);		
 	}
 	

@@ -66,7 +66,7 @@ public class NoticeController {
 		
 		vo.setWriter( ((MemberVO) session.getAttribute("login_info")).getId() );
 		//화면에서 입력한 정보를 DB에 저장한 후
-		service.notice_insert(vo);
+		service.noticeInsert(vo);
 		//목록 화면으로 연결
 		return "redirect:list.no";
 	}
@@ -75,11 +75,11 @@ public class NoticeController {
 	@RequestMapping("/detail.no")
 	public String detail(int id, Model model, HttpServletRequest request) {
 		//선택한 공지글에 대한 조회수 증가 처리
-		service.notice_read(id);
+		service.noticeRead(id);
 		String referer =  request.getHeader("referer"); // NULL 체크
 		
 		//선택한 공지글 정보를 DB에서 조회해와 상세 화면에 출력
-		model.addAttribute("vo", service.notice_detail(id));
+		model.addAttribute("vo", service.noticeDetail(id));
 		model.addAttribute("crlf", "\r\n");
 		model.addAttribute("page", new NoticePage()); // 에러가능성
 		
@@ -89,7 +89,7 @@ public class NoticeController {
 	//첨부파일 다운로드 요청//////////////////////////////////////////////////////
 	@ResponseBody @RequestMapping("/download.no")
 	public void download(int id, HttpSession session, HttpServletResponse response) {
-		NoticeVO vo = service.notice_detail(id);
+		NoticeVO vo = service.noticeDetail(id);
 		common.download(vo.getFilename(), vo.getFilepath(), session, response);
 	} //download()
 	
@@ -97,14 +97,14 @@ public class NoticeController {
 	@RequestMapping("/delete.no")
 	public String delete(int id, HttpSession session) {
 		//선택한 공지글에 첨부된 파일이 있다면 서버의 물리적 영역에서 해당 파일도 삭제한다
-		NoticeVO vo = service.notice_detail(id);
+		NoticeVO vo = service.noticeDetail(id);
 		if(vo.getFilepath() != null) {
 			File file = new File(session.getServletContext().getRealPath("resources") + vo.getFilepath());
 			if( file.exists() ) { file.delete(); }
 		}
 		
 		//선택한 공지글을 DB에서 삭제한 후 목록 화면으로 연결
-		service.notice_delete(id);
+		service.noticeDelete(id);
 		
 		return "redirect:list.no";
 	} //delete()
@@ -113,7 +113,7 @@ public class NoticeController {
 	@RequestMapping("/modify.no")
 	public String modify(int id, Model model) {
 		//선택한 공지글 정보를 DB에서 조회해와 수정화면에 출력
-		model.addAttribute("vo", service.notice_detail(id));
+		model.addAttribute("vo", service.noticeDetail(id));
 		return "notice/modify";
 	} //modify()
 	
@@ -121,7 +121,7 @@ public class NoticeController {
 	@RequestMapping("/update.no")
 	public String update(NoticeVO vo, MultipartFile file, HttpSession session, String attach) {
 		//원래 공지글의 첨부 파일 관련 정보를 조회
-		NoticeVO notice = service.notice_detail(vo.getId());
+		NoticeVO notice = service.noticeDetail(vo.getId());
 		String uuid = session.getServletContext().getRealPath("resources") + notice.getFilepath();
 		
 		//파일을 첨부한 경우 - 없었는데 첨부 / 있던 파일을 바꿔서 첨부
@@ -153,7 +153,7 @@ public class NoticeController {
 		}
 		
 		//화면에서 변경한 정보를 DB에 저장한 후 상세 화면으로 연결
-		service.notice_update(vo);
+		service.noticeUpdate(vo);
 		
 		return "redirect:detail.no?id=" + vo.getId();
 	} //update()
@@ -162,7 +162,7 @@ public class NoticeController {
 	@RequestMapping("/reply.no")
 	public String reply(Model model, int id) {
 		//원글의 정보를 답글 쓰기 화면에서 알 수 있도록 한다.
-		model.addAttribute("vo", service.notice_detail(id));
+		model.addAttribute("vo", service.noticeDetail(id));
 		
 		return "notice/reply";
 	} //reply()
@@ -177,7 +177,7 @@ public class NoticeController {
 		vo.setWriter( ((MemberVO)session.getAttribute("login_info")).getId() );
 		
 		//화면에서 입력한 정보를 DB에 저장한 후 목록화면으로 연결
-		service.notice_reply_insert(vo);
+		service.noticeReplyInsert(vo);
 		return "redirect:list.no";
 	} //reply_insert()
 } //class

@@ -9,7 +9,7 @@ public interface BoardMapper {
 	
 	public int insert(BoardVO vo);
 	
-	public List<BoardVO> list(BoardPage boardPage);
+	public List<BoardVO> list(BoardPage page);
 	
 	public BoardVO detail(int id);
 	
@@ -19,7 +19,7 @@ public interface BoardMapper {
 	
 	public int delete(int id);
 	
-	public int total(BoardPage boardPage);
+	public int total(BoardPage page);
 	
 	public int commentInsert(BoardCommentVO vo);
 	

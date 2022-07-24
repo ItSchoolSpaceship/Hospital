@@ -12,7 +12,7 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 </style>
 </head>
 <body>
-<h3>방명록</h3>
+<h3>병원리뷰</h3>
 <form id="list" method="post" action="">
 	<input type="hidden" name="curPage" value="1" />
 	<input type="hidden" name="id" />
@@ -44,12 +44,7 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 						<option value="30" ${page.pageList eq 30 ? 'selected' : '' }>30개씩</option>
 					</select>
 				</li>
-				<li>
-					<select name="viewType" class="w-px100" onchange="$('form').submit()">
-						<option value="list" ${page.viewType eq 'list' ? 'selected' : '' }>리스트 형태</option>
-						<option value="grid" ${page.viewType eq 'grid' ? 'selected' : '' }>바둑판 형태</option>
-					</select>
-				</li>
+				
 				<!-- 로그인되어 있으면 글쓰기 가능 -->
 				<core:if test="${!empty login_info }">
 					<li>
@@ -63,7 +58,6 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 </form>
 
 <div id="data-list">
-	<core:if test="${page.viewType eq 'list' }">
 		<table>
 			<tr>
 				<th class="w-px60">번호</th>
@@ -86,33 +80,12 @@ table td { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 				</tr>
 			</core:forEach>
 		</table>
-	</core:if>
-	
-	<core:if test="${page.viewType eq 'grid' }">
-		<ul class="grid">
-			<core:forEach items="${page.list }" var="vo">
-				<li>
-					<div><a onclick="go_detail(${vo.id})">${vo.title }</a></div>
-					<div>${vo.name }</div>
-					<div>
-						${vo.writedate }
-						<span>${empty vo.filename ? '' : '<img src="img/attach.png" class="file-img" />' }</span>
-					</div>
-				</li>
-			</core:forEach>
-		</ul>
-	</core:if>
 </div>
 
 <div class="btnSet">
 	<jsp:include page="/WEB-INF/views/include/page.jsp"/>
 </div>
 <script type="text/javascript">
-$(function(){
-	$('#data-list ul').css('height', 
-			( ( $('.grid li').length % 5 > 0 ? 1 : 0 ) + Math.floor($('.grid li').length / 5) )
-			 * $('.grid li').outerHeight(true) - 20);
-})
 
 function go_detail(id) {
 	$('[name=id]').val(id);

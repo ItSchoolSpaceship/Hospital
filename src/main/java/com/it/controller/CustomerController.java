@@ -19,7 +19,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CustomerController {
 	
-	 private CustomerServiceImpl customerServiceImpl;
+	 private CustomerServiceImpl service;
 	//컨트롤러 - 서비스 - DAO - 맵퍼 순으로 연결된다.
 	
 	//고객 관리 목록 화면
@@ -30,7 +30,7 @@ public class CustomerController {
 		
 		//category 어트리뷰트의 값에 따라 active 속성을 결정한다.
 		session.setAttribute("category", "cu");		//카테고리 어트리뷰트에 cu를 설정
-		List<CustomerVO> list = customerServiceImpl.customerList();
+		List<CustomerVO> list = service.customerList();
 		model.addAttribute("list", list);
 		return "customer/list";
 	}
@@ -39,7 +39,7 @@ public class CustomerController {
 	@GetMapping("/detail.cu")
 	public String detail(int id, Model model) {
 		//선택한 고객 정보를 DB에 조회해와서
-		CustomerVO vo = customerServiceImpl.customerDetail(id);
+		CustomerVO vo = service.customerDetail(id);
 		//화면에 출력할 수 있도록 Model에 담는다.
 		//원래는 string타입으로 담겨야하지만 스프링에서는 자동으로 형변환이 되서 int타입으로 담긴다.
 		
@@ -58,7 +58,7 @@ public class CustomerController {
 	@PostMapping("/insert.cu")
 	public String insert(CustomerVO vo) {
 		//화면에서 입력한 정보를 DB에 저장한 후
-		customerServiceImpl.customerInsert(vo);
+		service.customerInsert(vo);
 		
 		//목록 화면으로 연결
 		return "redirect:list.cu";
@@ -69,7 +69,7 @@ public class CustomerController {
 	public String modify(int id, Model model) {
 		//선택한 고객의 정보를 DB에서 조회해온 후
 		//수정 화면에 출력할 수 있도록 Model에 담는다
-		model.addAttribute("vo", customerServiceImpl.customerDetail(id));
+		model.addAttribute("vo", service.customerDetail(id));
 		return "customer/modify";
 	}
 	
@@ -77,7 +77,7 @@ public class CustomerController {
 	@PostMapping("/update.cu")
 	public String update(CustomerVO vo) {
 		//화면에서 수정 입력한 정보를 DB에 저장한 후
-		customerServiceImpl.customerUpdate(vo);
+		service.customerUpdate(vo);
 		
 		//화면으로 연결
 		return "redirect:detail.cu?id=" + vo.getId();
@@ -87,7 +87,7 @@ public class CustomerController {
 	@GetMapping("/delete.cu")
 	public String delete(int id) {
 		//선택한 고객 정보를 DB에서 삭제한 후
-		customerServiceImpl.customerDelete(id);
+		service.customerDelete(id);
 		//목록 화면으로 연결
 		return "redirect:list.cu";
 	}

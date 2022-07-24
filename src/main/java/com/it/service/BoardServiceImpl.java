@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.it.domain.BoardCommentVO;
 import com.it.domain.BoardVO;
-import com.it.domain.PageVO;
 import com.it.mapper.BoardMapper;
 import com.it.mapper.BoardPage;
 
@@ -25,15 +24,15 @@ public class BoardServiceImpl {
 		return mapper.insert(vo);
 	}
 	
- public BoardPage boardList(BoardPage page) {
+	public BoardPage boardList(BoardPage page) {
   
-	int totalPage = mapper.total(page); 
-	List<BoardVO> list = mapper.list(page);
+	//int totalPage = mapper.total(page); 
+	//List<BoardVO> list = mapper.list(page);
   
-  page.setTotalPage(totalPage); 
-  page.setList(list);
+	page.setTotalList(mapper.total(page)); 
+	page.setList(mapper.list(page));
   
-  return page; 
+	return page; 
 	}
 	
 	public BoardVO boardDetail(int id) {
@@ -60,11 +59,11 @@ public class BoardServiceImpl {
 		return mapper.commentList(pid);
 	}
 	
-	public int board_comment_update(BoardCommentVO vo) {
+	public int boardCommentUpdate(BoardCommentVO vo) {
 		return mapper.commentUpdate(vo);
 	}
 	
-	public int board_comment_delete(int id) {
+	public int boardCommentDelete(int id) {
 		return mapper.commentDelete(id);
 }
 	
